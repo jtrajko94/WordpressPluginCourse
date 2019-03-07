@@ -102,6 +102,9 @@ function slb_form_shortcode( $args, $content="") {
 	// get the list id
 	$list_id = 0;
 	if( isset($args['id']) ) $list_id = (int)$args['id'];
+
+	$title = '';
+	if( isset($args['title']) ) $title = (string)$args['title'];
 	
 	// setup our output variable - the form html 
 	$output = '
@@ -111,9 +114,16 @@ function slb_form_shortcode( $args, $content="") {
 			<form id="slb_form" name="slb_form" class="slb-form" method="post"
 			action="/wp-admin/admin-ajax.php?action=slb_save_subscription" method="post">
 			
-				<input type="hidden" name="slb_list" value="'. $list_id .'">
+				<input type="hidden" name="slb_list" value="'. $list_id .'">';
+				
+				
+				if( strlen($title) ):
+				
+					$output .= '<h3 class="slb-title">'. $title .'</h3>';
+				
+				endif;
 			
-				<p class="slb-input-container">
+				$output .='<p class="slb-input-container">
 				
 					<label>Your Name</label><br />
 					<input type="text" name="slb_fname" placeholder="First Name" />
@@ -244,9 +254,11 @@ function slb_list_column_data( $column, $post_id ) {
 function slb_public_scripts() {
 	// register scripts with WordPress's internal library
 	wp_register_script('snappy-list-builder-js-public', plugins_url('/js/public/snappy-list-builder.js',__FILE__), array('jquery'),'',true);
+	wp_register_style('snappy-list-builder-css-public', plugins_url('/css/public/snappy-list-builder.css',__FILE__));
 	
 	// add to que of scripts that get loaded into every page
 	wp_enqueue_script('snappy-list-builder-js-public');
+	wp_enqueue_style('snappy-list-builder-css-public');
 	
 }
 

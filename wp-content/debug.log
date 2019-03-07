@@ -48,3 +48,5 @@
 [06-Mar-2019 07:51:06 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php on line 310
 [06-Mar-2019 07:51:06 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/load.php on line 684
 [06-Mar-2019 07:51:42 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 251
+[07-Mar-2019 02:37:54 UTC] PHP Parse error:  syntax error, unexpected '}' in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 253
+[07-Mar-2019 02:40:11 UTC] PHP Parse error:  syntax error, unexpected ';', expecting ',' or ')' in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 247
