@@ -30,8 +30,11 @@ Text Domain: snappy-list-builder
 	3. FILTERS
 		3.1 - slb_subscriber_column_headers()
 		3.2 - slb_subscriber_column_data()
+		3.2.2 - custom admin title values
+		3.2.3 - sets title value
 		3.3 - slb_list_column_headers()
 		3.4 - slb_list_column_data()
+		3.5 - acf settings and dir
 		
 	4. EXTERNAL SCRIPTS
 		4.1 - slb_public_scripts()
@@ -75,6 +78,7 @@ add_filter('manage_edit-slb_list_columns','slb_list_column_headers');
 // hint: register custom admin column data
 add_filter('manage_slb_subscriber_posts_custom_column','slb_subscriber_column_data',1,2);
 add_filter('manage_slb_list_posts_custom_column','slb_list_column_data',1,2);
+add_action('admin_head-edit.php', 'slb_register_custom_admin_titles');
 
 // 1.4
 // hint: register ajax actions
@@ -84,6 +88,12 @@ add_action('wp_ajax_slb_save_subscription', 'slb_save_subscription'); // admin u
 // 1.5
 // load external files to public website
 add_action('wp_enqueue_scripts', 'slb_public_scripts');
+
+// Advanced Custom Fields Settings
+add_filter('acf/settings/path', 'slb_acf_settings_path');
+add_filter('acf/settings/dir', 'slb_acf_settings_dir');
+add_filter('acf/settings/show_admin', '__return_false');
+if( !defined('ACF_LITE') ) define('ACF_LITE',true); // turn off ACF plugin menu
 
 /* !2. SHORTCODES */
 
@@ -210,6 +220,34 @@ function slb_subscriber_column_data( $column, $post_id ) {
 	
 }
 
+// 3.2.2
+// hint: registers special custom admin title columns
+function slb_register_custom_admin_titles(){
+	add_filter(
+		'the_title',
+		'slb_custom_admin_titles',
+		99,
+		2
+	);
+}
+
+//3.2.3
+// hint: handles custom admin title "title" column data for post types without titles
+function slb_custom_admin_titles($title, $post_id){
+	global $post;
+	$output = $title;
+	if(isset($post->post_type)):
+		switch($post->post_type){
+			case 'slb_subscriber':
+				$fname = get_field('slb_fname', $post_id);
+				$lname = get_field('slb_lname', $post_id);
+				$output = $fname . " " . $lname;
+				break;		
+		}
+	endif;
+	return $output;
+}
+
 // 3.3
 function slb_list_column_headers( $columns ) {
 	
@@ -225,7 +263,7 @@ function slb_list_column_headers( $columns ) {
 	
 }
 
-// 3.2
+// 3.4
 function slb_list_column_data( $column, $post_id ) {
 	
 	// setup our return text
@@ -244,12 +282,25 @@ function slb_list_column_data( $column, $post_id ) {
 	
 }
 
+// 3.5
+function slb_acf_settings_path( $path ) {
+    return $path;    
+}
+
+function slb_acf_settings_dir( $dir ) {
+    return $dir; 
+}
+
+
 
 
 
 /* !4. EXTERNAL SCRIPTS */
 
 // 4.1
+// Include ACF
+include_once( plugin_dir_path( __FILE__ ) .'lib/advanced-custom-fields/acf.php' );
+
 // hint: loads external files into PUBLIC website
 function slb_public_scripts() {
 	// register scripts with WordPress's internal library
