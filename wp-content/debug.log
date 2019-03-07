@@ -136,3 +136,38 @@ Stack trace:
 #3 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/admin.php(224): do_action('list-builder_pa...')
 #4 {main}
   thrown in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 768
+[07-Mar-2019 05:33:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function slb_get_current_options() in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php:786
+Stack trace:
+#0 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(286): slb_options_admin_page('')
+#1 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#2 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/admin.php(224): do_action('list-builder_pa...')
+#4 {main}
+  thrown in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 786
+[07-Mar-2019 05:39:43 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function do_settings_fields(), 1 passed in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 992 and exactly 2 expected in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/includes/template.php:1508
+Stack trace:
+#0 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php(992): do_settings_fields('slb_plugin_opti...')
+#1 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(286): slb_options_admin_page('')
+#2 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#3 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#4 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/admin.php(224): do_action('list-builder_pa...')
+#5 {main}
+  thrown in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/includes/template.php on line 1508
+[07-Mar-2019 05:59:23 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function do_settings_fields(), 1 passed in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 998 and exactly 2 expected in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/includes/template.php:1508
+Stack trace:
+#0 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php(998): do_settings_fields('slb_plugin_opti...')
+#1 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(286): slb_options_admin_page('')
+#2 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#3 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#4 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/admin.php(224): do_action('list-builder_pa...')
+#5 {main}
+  thrown in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/includes/template.php on line 1508
+[07-Mar-2019 05:59:31 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function do_settings_fields(), 1 passed in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 998 and exactly 2 expected in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/includes/template.php:1508
+Stack trace:
+#0 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php(998): do_settings_fields('slb_plugin_opti...')
+#1 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(286): slb_options_admin_page('')
+#2 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#3 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#4 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/admin.php(224): do_action('list-builder_pa...')
+#5 {main}
+  thrown in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/includes/template.php on line 1508
