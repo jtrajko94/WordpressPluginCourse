@@ -37,7 +37,8 @@ Text Domain: snappy-list-builder
 		3.5 - acf settings and dir
 		
 	4. EXTERNAL SCRIPTS
-		4.1 - slb_public_scripts()
+		4.1 - Include ACF
+		4.2 - slb_public_scripts()
 		
 	5. ACTIONS
 		5.1 - slb_save_subscription()
@@ -53,6 +54,8 @@ Text Domain: snappy-list-builder
 		6.6 - slb_get_subscriber_data()
 		
 	7. CUSTOM POST TYPES
+		7.1 - subscribers
+		7.2 - lists
 	
 	8. ADMIN PAGES
 	
@@ -92,8 +95,7 @@ add_action('wp_enqueue_scripts', 'slb_public_scripts');
 // Advanced Custom Fields Settings
 add_filter('acf/settings/path', 'slb_acf_settings_path');
 add_filter('acf/settings/dir', 'slb_acf_settings_dir');
-add_filter('acf/settings/show_admin', '__return_false');
-if( !defined('ACF_LITE') ) define('ACF_LITE',true); // turn off ACF plugin menu
+add_filter('acf/settings/show_admin', '__return_false'); //turn this true to see on menu
 
 /* !2. SHORTCODES */
 
@@ -301,6 +303,7 @@ function slb_acf_settings_dir( $dir ) {
 // Include ACF
 include_once( plugin_dir_path( __FILE__ ) .'lib/advanced-custom-fields/acf.php' );
 
+// 4.2
 // hint: loads external files into PUBLIC website
 function slb_public_scripts() {
 	// register scripts with WordPress's internal library
@@ -665,6 +668,14 @@ function slb_get_subscriber_data( $subscriber_id ) {
 
 
 /* !7. CUSTOM POST TYPES */
+
+// 7.1
+// subscribers
+include_once( plugin_dir_path( __FILE__ ) . 'cpt/slb_subscriber.php');
+
+//7.2
+// lists
+include_once( plugin_dir_path( __FILE__ ) . 'cpt/slb_list.php');
 
 
 
