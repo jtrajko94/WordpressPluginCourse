@@ -23,7 +23,7 @@ function slb_register_slb_subscriber() {
 		"rest_base" => "",
 		"rest_controller_class" => "WP_REST_Posts_Controller",
 		"has_archive" => false,
-		"show_in_menu" => true,
+		"show_in_menu" => false,
 		"show_in_nav_menus" => true,
 		"exclude_from_search" => true,
 		"capability_type" => "post",

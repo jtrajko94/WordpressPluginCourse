@@ -22,6 +22,10 @@ Text Domain: snappy-list-builder
 		1.2 - register custom admin column headers
 		1.3 - register custom admin column data
 		1.4 - register ajax actions
+		1.5 - load external files to public website
+		1.6 - Advanced Custom Fields Settings
+		1.7 - register our custom menus
+		1.8 - load external files in WordPress admin
 	
 	2. SHORTCODES
 		2.1 - slb_register_shortcodes()
@@ -35,10 +39,12 @@ Text Domain: snappy-list-builder
 		3.3 - slb_list_column_headers()
 		3.4 - slb_list_column_data()
 		3.5 - acf settings and dir
+		3.6 - slb_admin_menus()
 		
 	4. EXTERNAL SCRIPTS
 		4.1 - Include ACF
 		4.2 - slb_public_scripts()
+		4.3 - slb_admin_scripts()
 		
 	5. ACTIONS
 		5.1 - slb_save_subscription()
@@ -58,6 +64,9 @@ Text Domain: snappy-list-builder
 		7.2 - lists
 	
 	8. ADMIN PAGES
+		8.1 - slb_dashboard_admin_page()
+		8.2 - slb_import_admin_page()
+		8.3 - slb_options_admin_page()
 	
 	9. SETTINGS
 
@@ -92,10 +101,19 @@ add_action('wp_ajax_slb_save_subscription', 'slb_save_subscription'); // admin u
 // load external files to public website
 add_action('wp_enqueue_scripts', 'slb_public_scripts');
 
+// 1.6
 // Advanced Custom Fields Settings
 add_filter('acf/settings/path', 'slb_acf_settings_path');
 add_filter('acf/settings/dir', 'slb_acf_settings_dir');
 add_filter('acf/settings/show_admin', '__return_false'); //turn this true to see on menu
+
+// 1.7 
+// hint: register our custom menus
+add_action('admin_menu', 'slb_admin_menus');
+
+// 1.8
+// hint: load external files in WordPress admin
+add_action('admin_enqueue_scripts', 'slb_admin_scripts');
 
 /* !2. SHORTCODES */
 
@@ -293,6 +311,35 @@ function slb_acf_settings_dir( $dir ) {
     return $dir; 
 }
 
+// 3.6
+// hint: registers custom plugin admin menus
+function slb_admin_menus() {
+	
+	/* main menu */
+	
+		$top_menu_item = 'slb_dashboard_admin_page';
+	    
+	    add_menu_page( '', 'List Builder', 'manage_options', 'slb_dashboard_admin_page', 'slb_dashboard_admin_page', 'dashicons-email-alt' );
+    
+    /* submenu items */
+    
+	    // dashboard
+	    add_submenu_page( $top_menu_item, '', 'Dashboard', 'manage_options', $top_menu_item, $top_menu_item );
+	    
+	    // email lists
+	    add_submenu_page( $top_menu_item, '', 'Email Lists', 'manage_options', 'edit.php?post_type=slb_list' );
+	    
+	    // subscribers
+	    add_submenu_page( $top_menu_item, '', 'Subscribers', 'manage_options', 'edit.php?post_type=slb_subscriber' );
+	    
+	    // import subscribers
+	    add_submenu_page( $top_menu_item, '', 'Import Subscribers', 'manage_options', 'slb_import_admin_page', 'slb_import_admin_page' );
+	    
+	    // plugin options
+	    add_submenu_page( $top_menu_item, '', 'Plugin Options', 'manage_options', 'slb_options_admin_page', 'slb_options_admin_page' );
+
+}
+
 
 
 
@@ -313,6 +360,18 @@ function slb_public_scripts() {
 	// add to que of scripts that get loaded into every page
 	wp_enqueue_script('snappy-list-builder-js-public');
 	wp_enqueue_style('snappy-list-builder-css-public');
+	
+}
+
+// 4.3
+// hint: loads external files into wordpress ADMIN
+function slb_admin_scripts() {
+	
+	// register scripts with WordPress's internal library
+	wp_register_script('snappy-list-builder-js-private', plugins_url('/js/private/snappy-list-builder.js',__FILE__), array('jquery'),'',true);
+	
+	// add to que of scripts that get loaded into every admin page
+	wp_enqueue_script('snappy-list-builder-js-private');
 	
 }
 
@@ -681,6 +740,129 @@ include_once( plugin_dir_path( __FILE__ ) . 'cpt/slb_list.php');
 
 
 /* !8. ADMIN PAGES */
+// 8.1
+// hint: dashboard admin page
+function slb_dashboard_admin_page() {
+	
+	
+	$output = '
+		<div class="wrap">
+			
+			<h2>Snappy List Builder</h2>
+			
+			<p>The ultimate email list building plugin for WordPress. Capture new subscribers. Reward subscribers with a custom download upon opt-in. Build unlimited lists. Import and export subscribers easily with .csv</p>
+		
+		</div>
+	';
+	
+	echo $output;
+	
+}
+
+// 8.2
+// hint: import subscribers admin page
+function slb_import_admin_page() {
+	
+	
+	$output = '
+		<div class="wrap">
+			
+			<h2>Import Subscribers</h2>
+			
+			<p>Page description...</p>
+		
+		</div>
+	';
+	
+	echo $output;
+	
+}
+
+// 8.3
+// hint: plugin options admin page
+function slb_options_admin_page() {
+	
+	// get the default values for our options
+	$options = slb_get_current_options();
+	
+	echo('<div class="wrap">
+		
+		<h2>Snappy List Builder Options</h2>
+		
+		<form action="options.php" method="post">');
+		
+			// outputs a unique nounce for our plugin options
+			settings_fields('slb_plugin_options');
+			// generates a unique hidden field with our form handling url
+			@do_settings_fields('slb_plugin_options');
+			
+			echo('<table class="form-table">
+			
+				<tbody>
+			
+					<tr>
+						<th scope="row"><label for="slb_manage_subscription_page_id">Manage Subscriptions Page</label></th>
+						<td>
+							'. slb_get_page_select( 'slb_manage_subscription_page_id', 'slb_manage_subscription_page_id', 0, 'id', $options['slb_manage_subscription_page_id'] ) .'
+							<p class="description" id="slb_manage_subscription_page_id-description">This is the page where Snappy List Builder will send subscribers to manage their subscriptions. <br />
+								IMPORTANT: In order to work, the page you select must contain the shortcode: <strong>[slb_manage_subscriptions]</strong>.</p>
+						</td>
+					</tr>
+					
+			
+					<tr>
+						<th scope="row"><label for="slb_confirmation_page_id">Opt-In Page</label></th>
+						<td>
+							'. slb_get_page_select( 'slb_confirmation_page_id', 'slb_confirmation_page_id', 0, 'id', $options['slb_confirmation_page_id'] ) .'
+							<p class="description" id="slb_confirmation_page_id-description">This is the page where Snappy List Builder will send subscribers to confirm their subscriptions. <br />
+								IMPORTANT: In order to work, the page you select must contain the shortcode: <strong>[slb_confirm_subscription]</strong>.</p>
+						</td>
+					</tr>
+					
+			
+					<tr>
+						<th scope="row"><label for="slb_reward_page_id">Download Reward Page</label></th>
+						<td>
+							'. slb_get_page_select( 'slb_reward_page_id', 'slb_reward_page_id', 0, 'id', $options['slb_reward_page_id'] ) .'
+							<p class="description" id="slb_reward_page_id-description">This is the page where Snappy List Builder will send subscribers to retrieve their reward downloads. <br />
+								IMPORTANT: In order to work, the page you select must contain the shortcode: <strong>[slb_download_reward]</strong>.</p>
+						</td>
+					</tr>
+			
+					<tr>
+						<th scope="row"><label for="slb_default_email_footer">Email Footer</label></th>
+						<td>');
+						
+							
+							// wp_editor will act funny if it's stored in a string so we run it like this...
+							wp_editor( $options['slb_default_email_footer'], 'slb_default_email_footer', array( 'textarea_rows'=>8 ) );
+							
+							
+							echo('<p class="description" id="slb_default_email_footer-description">The default text that appears at the end of emails generated by this plugin.</p>
+						</td>
+					</tr>
+			
+					<tr>
+						<th scope="row"><label for="slb_download_limit">Reward Download Limit</label></th>
+						<td>
+							<input type="number" name="slb_download_limit" value="'. $options['slb_download_limit'] .'" class="" />
+							<p class="description" id="slb_download_limit-description">The amount of downloads a reward link will allow before expiring.</p>
+						</td>
+					</tr>
+			
+				</tbody>
+				
+			</table>');
+		
+			// outputs the WP submit button html
+			@submit_button();
+		
+		
+		echo('</form>
+	
+	</div>');
+	
+}
 
 
 

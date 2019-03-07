@@ -128,3 +128,11 @@ Stack trace:
 [07-Mar-2019 04:44:12 UTC] PHP Warning:  include_once(): Failed opening '/Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/cpt/slb_list.php' for inclusion (include_path='.:/Applications/MAMP/bin/php/php7.2.10/lib/php') in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 674
 [07-Mar-2019 04:51:42 UTC] PHP Fatal error:  Cannot redeclare cptui_register_my_cpts() (previously declared in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/cpt/slb_subscriber.php:10) in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/cpt/slb_list.php on line 38
 [07-Mar-2019 04:53:42 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, function 'slb_register_slb_subscriber' not found or invalid function name in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php on line 286
+[07-Mar-2019 05:25:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function slb_get_current_options() in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php:768
+Stack trace:
+#0 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(286): slb_options_admin_page('')
+#1 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters('', Array)
+#2 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-includes/plugin.php(453): WP_Hook->do_action(Array)
+#3 /Applications/MAMP/htdocs/wordpress-plugin-course/wp-admin/admin.php(224): do_action('list-builder_pa...')
+#4 {main}
+  thrown in /Applications/MAMP/htdocs/wordpress-plugin-course/wp-content/plugins/sanetech-snappy-list-builder/sanetech-snappy-list-builder.php on line 768
